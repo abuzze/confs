@@ -1,0 +1,131 @@
+set imap_user = ""
+set imap_pass = ""
+#set smtp_url = "smtp://<localpart>@gmail.com@smtp.gmail.com:587/"
+#set smtp_pass = ""
+set from = "<mailadress>"
+set realname = ""
+ 
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set postponed="+[Gmail]/Drafts"
+ 
+#set header_cache=~/.mutt/cache/headers
+#set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+ 
+set move = no
+ 
+set sort = 'threads'
+set sort_aux = 'last-date-received'
+#set imap_check_subscribed
+ 
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+ignore *
+unignore From: To: Cc: Subject: Date:
+unhdr_order *
+hdr_order Date: From: To: Cc: Subject:
+ 
+ 
+set charset = UTF8          # Unicode (alternative is ISO-8859-1)
+set send_charset = "utf-8:iso-8859-1" # charset for sent messages
+ 
+set read_inc    = 50        # when reading mailboxes, update status every N messages (def 10)
+set write_inc   = 50        # when writing to mailboxes, update status every N messages (def 10)
+#set time_inc    = 500       # suppress status updates less than N milliseconds apart (def 0)
+#set net_inc     = 20        # progress update every N kilobytes during network file transfers
+unset arrow_cursor          # display -> instead of highlighting whole line
+ 
+set timeout = 15            # check current mailbox more frequently (every X seconds)
+set mail_check = 60         # check for new mail in all mailboxes every X seconds
+set sort = threads          # primary sort order (threads, date, from, size, to, etc)
+set sort_aux = last-date-received   # sort secondary by the last date received
+set strict_threads          # thread msgs by In-Reply-To and References instead of Subject
+set sort_re                 # less restrictive threading when strict threading enabled
+set sort_browser = alpha    # sort mailboxes alphabetically
+set sort_alias = unsorted   # show aliases as they are
+unset move                  # dont move mail from spool
+unset mark_old              # dont mark unread msgs as old when exiting
+unset markers               # toggle marking wrapped lines in pager with a '+'
+set menu_scroll             # scroll in menus 
+set smart_wrap              # dont split words
+set tilde                   # pad empty lines with a ~ similar to vi
+#unset narrow_tree           # toggle compact thread trees
+ 
+set quote_regexp = "^([A-Za-z ]+>|[]>:|}-][]>:|}-]*)"     # regexp to determine quotes
+set pager_index_lines = 4   # split screen to show display message index (x-1 entries) at top
+set pager_context = 4       # retain X lines of prev page when scrolling
+set pager_stop              # dont auto-go to next msg
+set status_on_top           # toggle status bar location
+ 
+# adds thread count to each thread
+set index_format = "%4C  %Z   %[%F  %H:%M]  %-22.22L  %s  %*    (%-4.4c)"    # message index format
+set pager_format = "[%C/%m] %b  %> %lL (%P)"      # pager statusbar
+set folder_format = "%2C %t %N %8s %d %f"         # mailbox list view
+set status_format = "%r %?M?%M/?%m total, %?n?%n new, ?%?u?%u unread, ?%?p?%p drafts, ?%?t?%t +tagged, ?%?d?%d deleted, ?(%f %l)  %?b?%b unread messages. ?%>  %V   sort by: %s/%S  (%P) %r"
+ 
+set use_from                    # generate a "From:" header field when sending messages
+#set use_envelope_from           # derive the envelope sender using the "From:" header
+set edit_headers                # edit mail headers in vim -- VERY HANDY
+set fast_reply                  # recipient & subject prompts will be skipped
+unset reply_self                # dont include myself when replying to a group email
+unset askcc                     # prompt for cc: recipient(s)
+unset write_bcc                 # dont write a placeholder bcc: header
+set abort_nosubject = ask-yes   # abort composition on absence of subject line?
+set abort_unmodified = ask-yes  # abort composition if message body is unaltered?
+set include = yes               # include message in replies
+set forward_format = "Fwd: %s"  # define the subject of forwarded messages
+set fcc_attach                  # forward attachments
+set forward_quote               # include message in forwards
+set mime_forward = ask-yes      # forward messages as attachments?
+set postpone = ask-yes          # prompt to postpone messages
+set recall = ask-no             # prompt to recall postponed msgs
+ 
+set date_format = "%b %d, %Y at %I:%M %p"     # date format for RE/FW headers
+set attribution = "On %D, %f wrote:"          # RE/FW headers
+ 
+set implicit_autoview           # show everything it knows how to show without being prompted
+auto_view text/html application/x-pgp-message # show these inline automatically
+ 
+# order in which to display types of message content
+alternative_order text/plain text/html text # multipart/alt precedence
+ 
+color   normal      white           default     # default colours
+color   index       magenta         default ~N  # new messages
+color   index       green           default ~F  # flagged messages
+color   index       blue            default ~T  # tagged messages
+color   index       cyan            default ~D  # deleted messages
+color   body        yellow          default     (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+color   body        brightyellow    default     [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+color   attachment  red             default     # attachments
+color   signature   brightwhite     default     # sigs
+color   search      brightred       black       # highlight results
+ 
+color   indicator   blue            default     # currently highlighted message
+color   error       red             default     # error messages
+color   status      white           black       # status line (unread msgs, current dir, etc.)
+color   markers     white           black       # shortcut statusline (q:Quit, etc.)
+color   tree        yellow          default     # tree thread arrows
+color   tilde       cyan            default     # blank line padding
+ 
+color   hdrdefault  white           black       # default headers
+color   header      brightwhite     black       "^From:"
+color   header      brightwhite     black       "^Subject:"
+ 
+color   quoted      cyan            default     # quote colours
+color   quoted1     brightcyan      default
+color   quoted2     green           default
+color   quoted3     blue            default
+color   quoted4     yellow          default
+color   quoted5     red             default
+ 
+color   body        green           default     "^gpg: Good signature from"
+color   body        brightred       default     "^gpg: Bad signature from"
+color   body        brightred       default     "^gpg: BAD signature from"
+color   body        brightred       default     "^gpg: Note: This key has expired!"
+color   body        brightyellow    default     "^gpg: WARNING: This key is not certified with a trusted signature!"
+color   body        brightyellow    default     "^gpg:          There is no indication that the signature belongs to the owner."
+color   body        brightyellow    default     "^gpg: can't handle these multiple signatures"
+color   body        brightyellow    default     "^gpg: signature verification suppressed"
+color   body        brightyellow    default     "^gpg: invalid node with packet of type"
